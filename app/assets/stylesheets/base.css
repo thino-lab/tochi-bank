@@ -1,0 +1,26 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+h1, h2, h3 { margin: 0; line-height: 1.4; color: var(--pg-navy); }
+h1 { font-size: 22px; }
+h2 { font-size: 17px; }
+h3 { font-size: 15px; }
+
+a { color: var(--pg-navy); text-decoration: none; }
+a:hover { color: var(--pg-turquoise); }
+
+img { max-width: 100%; display: block; }
+
+.icon { width: 18px; height: 18px; flex-shrink: 0; }
+.muted { color: var(--color-text-muted); }
+.num { font-variant-numeric: tabular-nums; }

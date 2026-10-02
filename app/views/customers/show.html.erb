@@ -1,0 +1,77 @@
+<% content_for :title, @customer.name %>
+<%= render "shared/page_header", title: "#{@customer.name} 様", sub: @customer.name_kana, back: customers_path do %>
+  <%= link_to "編集", edit_customer_path(@customer), class: "button" %>
+<% end %>
+
+<div class="grid-2">
+  <div>
+    <section class="card">
+      <div class="card__title"><h2>紹介中の土地（<%= @proposals.size %>）</h2></div>
+      <% if @proposals.any? %>
+        <table class="table">
+          <thead><tr><th>土地</th><th>価格</th><th>反応</th><th>紹介日</th><th></th></tr></thead>
+          <tbody>
+            <% @proposals.each do |p| %>
+              <tr>
+                <td><%= link_to p.land.name, p.land %></td>
+                <td class="num"><%= man_yen(p.land.price) %></td>
+                <td><%= reaction_badge(p) %></td>
+                <td class="num muted"><%= l(p.created_at.to_date) %></td>
+                <td><%= button_to "取消", land_proposal_path(p), method: :delete, class: "button button--small",
+                          form: { data: { turbo_confirm: "この紹介を取り消しますか？" } } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p class="muted">まだ土地を紹介していません。右の「土地を紹介する」から選んでください。</p>
+      <% end %>
+    </section>
+
+    <section class="card">
+      <h2 class="card__title">お客様情報</h2>
+      <dl class="spec-list num">
+        <dt>メール</dt><dd><%= @customer.email.presence || "—" %></dd>
+        <dt>電話番号</dt><dd><%= @customer.tel.presence || "—" %></dd>
+        <dt>土地予算上限</dt><dd><%= man_yen(@customer.budget_max) %></dd>
+        <dt>希望面積</dt><dd><%= tsubo(@customer.desired_land_area_tsubo) %></dd>
+        <dt>希望エリア</dt><dd><%= simple_format(@customer.desired_area.presence || "—") %></dd>
+        <dt>担当者</dt><dd><%= @customer.in_charge_user&.name || "—" %></dd>
+      </dl>
+    </section>
+  </div>
+
+  <aside>
+    <section class="card">
+      <h2 class="card__title">お客様専用ページ</h2>
+      <p class="muted" style="font-size:12px;margin-top:0">このURLをお客様に送ると、紹介した土地を一覧で見て「気になる／見送る」を回答できます。</p>
+      <div class="copy-field" data-controller="clipboard">
+        <input type="text" class="input" readonly value="<%= portal_root_url(@customer.portal_token) %>" data-clipboard-target="source">
+        <button type="button" class="button button--small" data-action="clipboard#copy" data-clipboard-target="button">コピー</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card__title">土地を紹介する</h2>
+      <% if @candidate_lands.any? %>
+        <%= form_with url: customer_land_proposals_path(@customer) do |f| %>
+          <ul class="check-list">
+            <% @candidate_lands.each do |land| %>
+              <li><label>
+                <%= check_box_tag "land_ids[]", land.id, false, id: "land_#{land.id}" %>
+                <span><%= land.name %><br><span class="muted num" style="font-size:12px"><%= man_yen(land.price) %>／<%= tsubo(land.land_area_tsubo) %></span></span>
+              </label></li>
+            <% end %>
+          </ul>
+          <div class="field" style="margin-top:12px">
+            <%= f.label :message, "お客様へのひとこと（任意）" %>
+            <%= f.text_area :message, rows: 3, placeholder: "ご希望のエリアに近い土地が出ました。" %>
+          </div>
+          <div style="margin-top:12px"><%= f.submit "選択した土地を紹介する", class: "button button--primary button--block" %></div>
+        <% end %>
+      <% else %>
+        <p class="muted">紹介できる土地がありません。</p>
+      <% end %>
+    </section>
+  </aside>
+</div>

@@ -1,0 +1,15 @@
+/* お客様専用ページ：スマホで開かれる前提の 1カラム */
+.portal { background: var(--color-surface); min-height: 100vh; }
+.portal-hero { background: var(--pg-navy); color: #fff; padding: var(--space-6) var(--space-4) var(--space-5); }
+.portal-hero__inner, .portal-main { max-width: 640px; margin: 0 auto; }
+.portal-hero__company { font-size: 12px; opacity: 0.8; letter-spacing: 0.06em; }
+.portal-hero__title { color: #fff; font-size: 20px; margin-top: var(--space-2); }
+.portal-hero__lead { font-size: 13px; opacity: 0.85; margin-top: var(--space-2); }
+.portal-main { padding: var(--space-4); }
+.portal-main .land-card + .land-card { margin-top: var(--space-3); }
+.portal-message { background: #fff; border-left: 3px solid var(--pg-turquoise); padding: var(--space-3) var(--space-4); border-radius: var(--radius-sm); margin: var(--space-4) 0; font-size: 13px; white-space: pre-wrap; }
+.portal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-top: var(--space-5); }
+.portal-actions form, .portal-actions .button { width: 100%; }
+.portal-actions .button { padding: 12px; }
+.portal-actions .is-selected { border-color: var(--pg-turquoise); color: #00808e; font-weight: 700; }
+.portal-footer { text-align: center; font-size: 11px; color: var(--color-text-muted); padding: var(--space-6) var(--space-4); }

@@ -1,0 +1,58 @@
+<%= form_with model: land do |f| %>
+  <%= render "shared/form_errors", record: land %>
+  <section class="card">
+    <h2 class="card__title">基本情報</h2>
+    <div class="form-grid">
+      <div class="field span-2"><%= f.label :name %><%= f.text_field :name, required: true, placeholder: "例）緑ヶ丘3丁目 南向き整形地" %></div>
+      <div class="field"><%= f.label :status %><%= f.select :status, Land.enum_options(:status) %></div>
+      <div class="field">
+        <%= f.label :price_man_yen, "価格" %>
+        <div class="input-suffix"><%= f.number_field :price_man_yen, min: 0, step: "any" %><span>万円</span></div>
+      </div>
+      <div class="field"><%= f.label :postal_code %><%= f.text_field :postal_code, placeholder: "123-4567" %></div>
+      <div class="field"><%= f.label :prefecture %><%= f.text_field :prefecture %></div>
+      <div class="field"><%= f.label :city %><%= f.text_field :city %></div>
+      <div class="field"><%= f.label :address_detail %><%= f.text_field :address_detail %></div>
+      <div class="field">
+        <%= f.label :in_charge_user_id, "担当者" %>
+        <%= f.collection_select :in_charge_user_id, current_company.profiles.active.order(:name), :id, :name, include_blank: "未設定" %>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2 class="card__title">土地の詳細</h2>
+    <div class="form-grid" data-controller="tsubo">
+      <div class="field">
+        <%= f.label :land_area %>
+        <div class="input-suffix"><%= f.number_field :land_area, min: 0, step: "any", data: { tsubo_target: "sqm", action: "input->tsubo#fromSqm" } %><span>㎡</span></div>
+      </div>
+      <div class="field">
+        <%= f.label :land_area_tsubo %>
+        <div class="input-suffix"><%= f.number_field :land_area_tsubo, min: 0, step: "any", data: { tsubo_target: "tsubo", action: "input->tsubo#fromTsubo" } %><span>坪</span></div>
+        <div class="field__hint">どちらかを入力するともう一方を自動計算します</div>
+      </div>
+      <div class="field"><%= f.label :building_coverage_ratio %><%= f.text_field :building_coverage_ratio, placeholder: "60%" %></div>
+      <div class="field"><%= f.label :floor_area_ratio %><%= f.text_field :floor_area_ratio, placeholder: "200%" %></div>
+      <div class="field"><%= f.label :zoning %><%= f.select :zoning, Land.enum_options(:zoning), include_blank: "未設定" %></div>
+      <div class="field"><%= f.label :land_category %><%= f.select :land_category, Land.enum_options(:land_category), include_blank: "未設定" %></div>
+      <div class="field"><%= f.label :topography %><%= f.select :topography, Land.enum_options(:topography), include_blank: "未設定" %></div>
+      <div class="field"><%= f.label :current_status %><%= f.select :current_status, Land.enum_options(:current_status), include_blank: "未設定" %></div>
+      <div class="field"><label><%= f.check_box :has_building_conditions %> 建築条件あり</label></div>
+      <div class="field span-2"><%= f.label :adjacent_road %><%= f.text_area :adjacent_road, rows: 2, placeholder: "南側 公道 6.0m" %></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2 class="card__title">コメント</h2>
+    <div class="form-grid">
+      <div class="field span-2"><%= f.label :comment %><%= f.text_area :comment, rows: 4 %><div class="field__hint">お客様専用ページに表示されます</div></div>
+      <div class="field span-2"><%= f.label :remarks %><%= f.text_area :remarks, rows: 3 %><div class="field__hint">社内のみ。お客様には表示されません</div></div>
+    </div>
+  </section>
+
+  <div class="form-actions">
+    <%= link_to "キャンセル", land.persisted? ? land_path(land) : lands_path, class: "button" %>
+    <%= f.submit land.persisted? ? "更新する" : "登録する", class: "button button--primary" %>
+  </div>
+<% end %>

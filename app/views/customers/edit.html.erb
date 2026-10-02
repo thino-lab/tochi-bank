@@ -1,0 +1,3 @@
+<% content_for :title, "#{@customer.name}を編集" %>
+<%= render "shared/page_header", title: "顧客を編集", sub: @customer.name, back: customer_path(@customer) %>
+<%= render "form", customer: @customer %>

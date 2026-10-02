@@ -1,0 +1,6 @@
+<div class="empty-state">
+  <div><%= message %></div>
+  <% if local_assigns[:action_label] %>
+    <%= link_to action_label, action_path, class: "button button--primary" %>
+  <% end %>
+</div>

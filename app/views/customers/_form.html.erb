@@ -1,0 +1,28 @@
+<%= form_with model: customer do |f| %>
+  <%= render "shared/form_errors", record: customer %>
+  <section class="card">
+    <div class="form-grid">
+      <div class="field"><%= f.label :name %><%= f.text_field :name, required: true %></div>
+      <div class="field"><%= f.label :name_kana %><%= f.text_field :name_kana %></div>
+      <div class="field"><%= f.label :email %><%= f.email_field :email %></div>
+      <div class="field"><%= f.label :tel %><%= f.telephone_field :tel %></div>
+      <div class="field">
+        <%= f.label :budget_max_man_yen, "土地予算上限" %>
+        <div class="input-suffix"><%= f.number_field :budget_max_man_yen, min: 0, step: "any" %><span>万円</span></div>
+      </div>
+      <div class="field">
+        <%= f.label :desired_land_area_tsubo %>
+        <div class="input-suffix"><%= f.number_field :desired_land_area_tsubo, min: 0, step: "any" %><span>坪</span></div>
+      </div>
+      <div class="field span-2"><%= f.label :desired_area %><%= f.text_area :desired_area, rows: 2 %></div>
+      <div class="field">
+        <%= f.label :in_charge_user_id, "担当者" %>
+        <%= f.collection_select :in_charge_user_id, current_company.profiles.active.order(:name), :id, :name, include_blank: "未設定" %>
+      </div>
+    </div>
+  </section>
+  <div class="form-actions">
+    <%= link_to "キャンセル", customer.persisted? ? customer_path(customer) : customers_path, class: "button" %>
+    <%= f.submit customer.persisted? ? "更新する" : "登録する", class: "button button--primary" %>
+  </div>
+<% end %>

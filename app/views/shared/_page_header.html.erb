@@ -1,0 +1,11 @@
+<%# 画面見出し。locals: title, sub(任意), back(任意: 戻り先パス)。ブロックで右側にボタンを置ける %>
+<div class="page-header">
+  <div>
+    <% if local_assigns[:back] %>
+      <%= link_to back, class: "back-link" do %><%= icon(:back) %>戻る<% end %>
+    <% end %>
+    <h1><%= title %></h1>
+    <% if local_assigns[:sub] %><div class="page-header__sub"><%= sub %></div><% end %>
+  </div>
+  <div><%= yield %></div>
+</div>

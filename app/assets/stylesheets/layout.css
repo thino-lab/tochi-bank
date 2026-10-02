@@ -1,0 +1,56 @@
+/* スタッフ画面：濃紺ヘッダー × 白コンテンツ */
+.app-header {
+  background: var(--pg-navy);
+  color: #fff;
+}
+.app-header__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+.app-header__brand { color: #fff; font-weight: 700; font-size: 16px; letter-spacing: 0.04em; }
+.app-header__brand:hover { color: #fff; }
+.app-nav { display: flex; gap: var(--space-2); flex: 1; }
+.app-nav a {
+  color: rgba(255, 255, 255, 0.8);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 2px solid transparent;
+  display: inline-flex; align-items: center; gap: var(--space-2);
+}
+.app-nav a:hover { color: #fff; }
+.app-nav a.is-active { color: #fff; border-bottom-color: var(--pg-turquoise); }
+.app-header__user { display: flex; align-items: center; gap: var(--space-3); font-size: 13px; }
+.app-header__user .button { color: #fff; border-color: rgba(255, 255, 255, 0.4); }
+
+.app-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-5);
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+.page-header__sub { color: var(--color-text-muted); font-size: 13px; margin-top: var(--space-1); }
+
+.grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-5); align-items: start; }
+@media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+
+/* ログイン画面 */
+.auth {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, var(--pg-navy) 0 40%, var(--color-surface) 40% 100%);
+  padding: var(--space-4);
+}
+.auth__card { width: 100%; max-width: 380px; }
+.auth__title { text-align: center; margin-bottom: var(--space-5); }

@@ -1,0 +1,140 @@
+ja:
+  # 相対時間表示（distance_of_time_in_words / time_ago_in_words）の日本語。
+  # rails-i18n gem を入れていないため、必要な標準キーをここで定義する
+  # （未定義だと "Translation missing: ja.datetime.distance_in_words.x_days" が表示される）。
+  datetime:
+    distance_in_words:
+      half_a_minute: "30秒前後"
+      less_than_x_seconds:
+        one: "1秒以内"
+        other: "%{count}秒未満"
+      x_seconds:
+        one: "1秒"
+        other: "%{count}秒"
+      less_than_x_minutes:
+        one: "1分以内"
+        other: "%{count}分未満"
+      x_minutes:
+        one: "1分"
+        other: "%{count}分"
+      about_x_hours:
+        one: "約1時間"
+        other: "約%{count}時間"
+      x_days:
+        one: "1日"
+        other: "%{count}日"
+      about_x_months:
+        one: "約1か月"
+        other: "約%{count}か月"
+      x_months:
+        one: "1か月"
+        other: "%{count}か月"
+      about_x_years:
+        one: "約1年"
+        other: "約%{count}年"
+      over_x_years:
+        one: "1年以上"
+        other: "%{count}年以上"
+      almost_x_years:
+        one: "1年弱"
+        other: "%{count}年弱"
+
+  views:
+    pagination:
+      previous: "前のページ"
+      next: "後のページ"
+      first: ""
+      last: ""
+      truncate: "…"
+
+  # バリデーション等の標準エラーメッセージ（日本語）
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: "を入力してください"
+      present: "は入力しないでください"
+      invalid: "は正しい形式で入力してください"
+      taken: "はすでに使用されています"
+      confirmation: "が一致しません"
+      accepted: "を承認してください"
+      too_long: "は%{count}文字以内で入力してください"
+      too_short: "は%{count}文字以上で入力してください"
+      wrong_length: "は%{count}文字で入力してください"
+      not_a_number: "は数値で入力してください"
+      not_an_integer: "は整数で入力してください"
+      greater_than: "は%{count}より大きい値にしてください"
+      greater_than_or_equal_to: "は%{count}以上の値にしてください"
+      less_than: "は%{count}より小さい値にしてください"
+      less_than_or_equal_to: "は%{count}以下の値にしてください"
+      equal_to: "は%{count}にしてください"
+      other_than: "は%{count}以外の値にしてください"
+      inclusion: "は一覧にない値です"
+      exclusion: "は予約されています"
+
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "バリデーションに失敗しました: %{errors}"
+    models:
+      company: 企業
+      profile: スタッフ
+      land: 土地
+      customer: 顧客
+      land_proposal: 土地紹介
+    attributes:
+      profile:
+        name: 氏名
+        email: メールアドレス
+        password: パスワード
+        role: 権限
+      land:
+        name: 土地名
+        status: ステータス
+        price: 価格
+        postal_code: 郵便番号
+        prefecture: 都道府県
+        city: 市区町村
+        address_detail: 住所詳細
+        land_area: 土地面積（㎡）
+        land_area_tsubo: 土地面積（坪）
+        building_coverage_ratio: 建ぺい率
+        floor_area_ratio: 容積率
+        zoning: 用途地域
+        land_category: 地目
+        topography: 地勢
+        current_status: 現況
+        has_building_conditions: 建築条件
+        adjacent_road: 道路（方位・幅員）
+        comment: お客様向けコメント
+        remarks: 社内備考
+        in_charge_user: 担当者
+      customer:
+        name: 氏名
+        name_kana: 氏名カナ
+        email: メールアドレス
+        tel: 電話番号
+        budget_max: 土地予算上限
+        desired_land_area_tsubo: 希望面積（坪）
+        desired_area: 希望エリア
+        in_charge_user: 担当者
+      land_proposal:
+        message: お客様へのひとこと
+        reaction: 反応
+        land_id: 土地
+
+  date:
+    formats:
+      default: "%Y/%m/%d"
+      short: "%m/%d"
+    day_names: [日曜日, 月曜日, 火曜日, 水曜日, 木曜日, 金曜日, 土曜日]
+    abbr_day_names: [日, 月, 火, 水, 木, 金, 土]
+    order:
+      - :year
+      - :month
+      - :day
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M"
+      short: "%m/%d %H:%M"
+    am: 午前
+    pm: 午後

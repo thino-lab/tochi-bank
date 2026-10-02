@@ -1,0 +1,56 @@
+<% content_for :title, @land.name %>
+<%= render "shared/page_header", title: @land.name, sub: @land.address, back: lands_path do %>
+  <%= link_to "編集", edit_land_path(@land), class: "button" %>
+<% end %>
+
+<div class="grid-2">
+  <div>
+    <section class="card">
+      <div class="card__title"><h2>物件概要</h2><%= land_status_badge(@land) %></div>
+      <dl class="spec-list num">
+        <dt>価格</dt><dd><strong><%= man_yen(@land.price) %></strong><% if @land.price_per_tsubo %>（坪単価 <%= man_yen(@land.price_per_tsubo) %>）<% end %></dd>
+        <dt>土地面積</dt><dd><%= sqm(@land.land_area) %>（<%= tsubo(@land.land_area_tsubo) %>）</dd>
+        <dt>建ぺい率／容積率</dt><dd><%= @land.building_coverage_ratio.presence || "—" %> ／ <%= @land.floor_area_ratio.presence || "—" %></dd>
+        <dt>用途地域</dt><dd><%= @land.zoning_i18n || "—" %></dd>
+        <dt>地目</dt><dd><%= @land.land_category_i18n || "—" %></dd>
+        <dt>地勢</dt><dd><%= @land.topography_i18n || "—" %></dd>
+        <dt>現況</dt><dd><%= @land.current_status_i18n || "—" %></dd>
+        <dt>建築条件</dt><dd><%= @land.has_building_conditions? ? "あり" : "なし" %></dd>
+        <dt>道路</dt><dd><%= simple_format(@land.adjacent_road.presence || "—") %></dd>
+        <dt>担当者</dt><dd><%= @land.in_charge_user&.name || "—" %></dd>
+      </dl>
+    </section>
+    <section class="card">
+      <h2 class="card__title">お客様向けコメント</h2>
+      <%= simple_format(@land.comment.presence || "未入力") %>
+    </section>
+    <section class="card">
+      <h2 class="card__title">社内備考</h2>
+      <%= simple_format(@land.remarks.presence || "未入力") %>
+    </section>
+  </div>
+
+  <aside class="card">
+    <h2 class="card__title">紹介したお客様（<%= @proposals.size %>）</h2>
+    <% if @proposals.any? %>
+      <table class="table">
+        <tbody>
+          <% @proposals.each do |p| %>
+            <tr>
+              <td><%= link_to p.customer.name, p.customer %></td>
+              <td><%= reaction_badge(p) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="muted">まだ紹介していません。顧客詳細から紹介できます。</p>
+    <% end %>
+    <% if policy(@land).destroy? %>
+      <div style="margin-top:24px">
+        <%= button_to "この土地を削除", land_path(@land), method: :delete, class: "button button--danger button--small",
+              form: { data: { turbo_confirm: "削除しますか？（紹介中のお客様のページからも非表示になります）" } } %>
+      </div>
+    <% end %>
+  </aside>
+</div>

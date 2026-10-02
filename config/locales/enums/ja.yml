@@ -1,0 +1,73 @@
+# enum の日本語ラベル（enum_help: record.<attr>_i18n で参照）
+ja:
+  enums:
+    profile:
+      role:
+        admin: 管理者
+        member: 一般
+    land:
+      status:
+        available: 紹介可
+        in_negotiation: 商談中
+        contracted: 成約
+        draft: 下書き
+      current_status:
+        has_old_house: 古家あり
+        vacant_land: 更地
+        before_development: 造成前
+        vacant: 空室
+        occupied: 居住中
+        under_development: 工事中
+        others: その他
+      topography:
+        flat: 平坦
+        high: 高台
+        low: 低地
+        tiered: ひな壇
+        sloped: 傾斜地
+      zoning:
+        first_low_rise_residential_zone: 第一種低層住居専用地域
+        second_low_rise_residential_zone: 第二種低層住居専用地域
+        first_high_rise_residential_zone: 第一種中高層住居専用地域
+        second_high_rise_residential_zone: 第二種中高層住居専用地域
+        first_residential_zone: 第一種住居地域
+        second_residential_zone: 第二種住居地域
+        countryside_residential_zone: 田園住居地域
+        quasi_residential_zone: 準住居地域
+        neighborhood_commercial_zone: 近隣商業地域
+        commercial_zone: 商業地域
+        quasi_industrial_zone: 準工業地域
+        industrial_zone: 工業地域
+        exclusively_industrial_zone: 工業専用地域
+        first_rise_residential_zone: １種住居
+        none: なし
+      land_category:
+        field: 田
+        farmland: 畑
+        residential_land: 宅地
+        school_land: 学校用地
+        railway_land: 鉄道用地
+        salt_field: 塩田
+        mineral_spring_land: 鉱泉地
+        marsh: 池沼
+        forest: 山林
+        pasture: 牧場
+        wilderness: 原野
+        cemetery: 墓地
+        shrine: 境内地
+        canal_land: 運河用地
+        water_supply_land: 水道用地
+        drainage_land: 用悪水路
+        reservoir: ため池
+        embankment: 堤
+        ditch: 井溝
+        protected_forest: 保安林
+        public_road: 公衆用道路
+        park: 公園
+        mixed_use_land: 雑種地
+    land_proposal:
+      reaction:
+        unread: 未確認
+        viewed: 確認済み
+        interested: 気になる
+        declined: 見送り

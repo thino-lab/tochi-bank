@@ -1,0 +1,3 @@
+<% content_for :title, "#{@land.name}を編集" %>
+<%= render "shared/page_header", title: "土地を編集", sub: @land.name, back: land_path(@land) %>
+<%= render "form", land: @land %>

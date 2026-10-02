@@ -1,0 +1,26 @@
+<% content_for :title, "顧客一覧" %>
+<%= render "shared/page_header", title: "顧客一覧", sub: "#{@customers.total_count}件" do %>
+  <%= link_to new_customer_path, class: "button button--primary" do %><%= icon(:plus) %>顧客を登録<% end %>
+<% end %>
+
+<% if @customers.any? %>
+  <div class="card" style="padding:0">
+    <table class="table">
+      <thead><tr><th>氏名</th><th>希望エリア</th><th>予算上限</th><th>希望面積</th><th>担当者</th></tr></thead>
+      <tbody>
+        <% @customers.each do |c| %>
+          <tr>
+            <td><%= link_to c.name, c %><div class="muted" style="font-size:12px"><%= c.name_kana %></div></td>
+            <td><%= truncate(c.desired_area, length: 30) %></td>
+            <td class="num"><%= man_yen(c.budget_max) %></td>
+            <td class="num"><%= tsubo(c.desired_land_area_tsubo) %></td>
+            <td><%= c.in_charge_user&.name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= paginate @customers %>
+<% else %>
+  <%= render "shared/empty_state", message: "顧客が登録されていません", action_label: "顧客を登録", action_path: new_customer_path %>
+<% end %>

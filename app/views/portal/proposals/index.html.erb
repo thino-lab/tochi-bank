@@ -1,0 +1,17 @@
+<div class="portal-hero">
+  <div class="portal-hero__inner">
+    <div class="portal-hero__company"><%= @customer.company.name %></div>
+    <h1 class="portal-hero__title"><%= @customer.name %> 様へのご紹介土地</h1>
+    <p class="portal-hero__lead">気になる土地があれば、詳細ページから「気になる」を押してください。担当者よりご連絡します。</p>
+  </div>
+</div>
+<main class="portal-main">
+  <% if @proposals.any? %>
+    <% @proposals.each do |p| %>
+      <%= render "shared/land_card", land: p.land, path: portal_proposal_path(params[:token], p),
+            badge: (p.reaction_unread? ? tag.span("NEW", class: "badge badge--accent") : reaction_badge(p)) %>
+    <% end %>
+  <% else %>
+    <div class="empty-state">現在ご紹介中の土地はありません。</div>
+  <% end %>
+</main>

@@ -1,0 +1,10 @@
+yamada:
+  company: pure
+  name: 山田 一郎
+  email: yamada@example.com
+  budget_max: 30000000
+  in_charge_user: admin
+
+other_customer:
+  company: other
+  name: 他社の顧客

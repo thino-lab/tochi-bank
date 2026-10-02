@@ -1,0 +1,15 @@
+/*
+ * スタイルは役割ごとにファイルを分ける（読み込み順に意味がある）。
+ *   1. tokens     … 色・余白・角丸などのデザイントークン（PGデザインコード v1.2）
+ *   2. base       … リセットと要素の素のスタイル
+ *   3. layout     … スタッフ画面の骨組み（ヘッダー・メイン）
+ *   4. components … ボタン・カード・表・フォームなどの部品
+ *   5. portal     … お客様専用ページ（スマホ前提）
+ *
+ *= require tokens
+ *= require base
+ *= require layout
+ *= require components
+ *= require portal
+ *= require_self
+ */

@@ -1,0 +1,16 @@
+<%# 土地カード。スタッフ一覧・お客様ページの両方で使う共通部品。locals: land, path, badge(任意) %>
+<%= link_to path, class: "land-card" do %>
+  <div class="land-card__head">
+    <div>
+      <div class="land-card__name"><%= land.name %></div>
+      <div class="land-card__address"><%= land.address.presence || "所在地未登録" %></div>
+    </div>
+    <%= local_assigns[:badge] %>
+  </div>
+  <div class="land-card__price num"><%= man_yen(land.price) %></div>
+  <div class="land-card__specs num">
+    <span>面積 <strong><%= tsubo(land.land_area_tsubo) %></strong></span>
+    <% if land.price_per_tsubo %><span>坪単価 <strong><%= man_yen(land.price_per_tsubo) %></strong></span><% end %>
+    <% if land.zoning %><span><%= land.zoning_i18n %></span><% end %>
+  </div>
+<% end %>

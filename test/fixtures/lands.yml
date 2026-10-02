@@ -1,0 +1,36 @@
+midori:
+  company: pure
+  name: 緑ヶ丘 南向き整形地
+  status: available
+  price: 28000000
+  prefecture: 埼玉県
+  city: さいたま市緑区
+  land_area: 165.3
+  land_area_tsubo: 50.0
+  zoning: first_low_rise_residential_zone
+  in_charge_user: admin
+
+sakura:
+  company: pure
+  name: 桜台 角地
+  status: in_negotiation
+  price: 35800000
+  prefecture: 埼玉県
+  city: 川口市
+  land_area: 198.0
+  land_area_tsubo: 59.9
+  zoning: first_residential_zone
+  in_charge_user: member
+
+sold:
+  company: pure
+  name: 成約済みの土地
+  status: contracted
+  price: 20000000
+  land_area_tsubo: 40.0
+
+other_land:
+  company: other
+  name: 他社の土地
+  status: available
+  price: 10000000

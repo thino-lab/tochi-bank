@@ -1,0 +1,39 @@
+<% content_for :title, "土地一覧" %>
+<%= render "shared/page_header", title: "土地一覧", sub: "#{@lands.total_count}件" do %>
+  <%= link_to new_land_path, class: "button button--primary" do %><%= icon(:plus) %>土地を登録<% end %>
+<% end %>
+
+<%= form_with url: lands_path, method: :get, class: "filter-bar", data: { turbo_frame: "_top" } do |f| %>
+  <div class="field field--grow">
+    <%= f.label :q, "キーワード" %>
+    <%= f.text_field :q, value: params[:q], placeholder: "土地名・住所" %>
+  </div>
+  <div class="field">
+    <%= f.label :status, "ステータス" %>
+    <%= f.select :status, Land.enum_options(:status), { include_blank: "すべて", selected: params[:status] } %>
+  </div>
+  <div class="field">
+    <%= f.label :price_max, "価格上限" %>
+    <div class="input-suffix"><%= f.number_field :price_max, value: params[:price_max], min: 0 %><span>万円</span></div>
+  </div>
+  <div class="field">
+    <%= f.label :tsubo_min, "面積下限" %>
+    <div class="input-suffix"><%= f.number_field :tsubo_min, value: params[:tsubo_min], min: 0 %><span>坪</span></div>
+  </div>
+  <div class="field">
+    <%= f.label :sort, "並び順" %>
+    <%= f.select :sort, [["新着順", "new"], ["価格が安い順", "price_asc"], ["価格が高い順", "price_desc"], ["面積が広い順", "area_desc"]], selected: params[:sort] %>
+  </div>
+  <%= f.button class: "button" do %><%= icon(:search) %>検索<% end %>
+<% end %>
+
+<% if @lands.any? %>
+  <div class="land-grid">
+    <% @lands.each do |land| %>
+      <%= render "shared/land_card", land: land, path: land_path(land), badge: land_status_badge(land) %>
+    <% end %>
+  </div>
+  <%= paginate @lands %>
+<% else %>
+  <%= render "shared/empty_state", message: "条件に合う土地がありません", action_label: "土地を登録", action_path: new_land_path %>
+<% end %>

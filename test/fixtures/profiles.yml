@@ -1,0 +1,20 @@
+admin:
+  company: pure
+  name: 田中 太郎
+  email: tanaka@example.com
+  password_digest: <%= BCrypt::Password.create("password", cost: BCrypt::Engine::MIN_COST) %>
+  role: admin
+
+member:
+  company: pure
+  name: 鈴木 花子
+  email: suzuki@example.com
+  password_digest: <%= BCrypt::Password.create("password", cost: BCrypt::Engine::MIN_COST) %>
+  role: member
+
+other_admin:
+  company: other
+  name: 他社 管理者
+  email: other@example.com
+  password_digest: <%= BCrypt::Password.create("password", cost: BCrypt::Engine::MIN_COST) %>
+  role: admin

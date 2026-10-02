@@ -1,0 +1,29 @@
+/* デザイントークン（PGデザインコード v1.2 準拠）。色・寸法はここ以外で直書きしない。 */
+:root {
+  --pg-navy: #123770;      /* ベース濃紺 */
+  --pg-navy-deep: #0d2a54; /* 深い紺 */
+  --pg-turquoise: #00b6c9; /* アクセント（効かせる場所だけ。面で塗らない） */
+  --pg-orange: #fa7748;    /* 注意・警告のみ */
+  --pg-gray: #d8d8d8;      /* 区切り線 */
+
+  --color-bg: #ffffff;
+  --color-surface: #f6f8fb;
+  --color-text: #1f2a3d;
+  --color-text-muted: #66708a;
+  --color-border: var(--pg-gray);
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --shadow-sm: 0 1px 3px rgba(18, 55, 112, 0.08);
+  --shadow-md: 0 4px 14px rgba(18, 55, 112, 0.12);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  --font-sans: "Noto Sans JP", system-ui, -apple-system, "Hiragino Sans", sans-serif;
+  --transition: 160ms ease;
+}

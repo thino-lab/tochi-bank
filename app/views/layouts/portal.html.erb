@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>ご紹介の土地｜<%= @customer&.company&.name %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= render "shared/head_assets" %>
+  </head>
+  <body class="portal">
+    <%= yield %>
+    <footer class="portal-footer"><%= @customer&.company&.name %></footer>
+  </body>
+</html>

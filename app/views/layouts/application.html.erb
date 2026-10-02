@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title><%= content_for(:title).presence&.then { "#{_1}｜" } %>土地バンク</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= render "shared/head_assets" %>
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="app-header__inner">
+        <%= link_to "土地バンク", root_path, class: "app-header__brand" %>
+        <nav class="app-nav">
+          <%= nav_link "土地", lands_path, :map, active: controller_name == "lands" %>
+          <%= nav_link "顧客", customers_path, :users, active: controller_name == "customers" %>
+        </nav>
+        <div class="app-header__user">
+          <span><%= current_company.name %>｜<%= current_profile.name %></span>
+          <%= button_to "ログアウト", logout_path, method: :delete, class: "button button--small button--ghost" %>
+        </div>
+      </div>
+    </header>
+    <main class="app-main">
+      <%= render "shared/flash" %>
+      <%= yield %>
+    </main>
+  </body>
+</html>

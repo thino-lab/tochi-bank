@@ -1,0 +1,40 @@
+<% land = @proposal.land %>
+<div class="portal-hero">
+  <div class="portal-hero__inner">
+    <div class="portal-hero__company"><%= @customer.company.name %></div>
+    <h1 class="portal-hero__title"><%= land.name %></h1>
+    <p class="portal-hero__lead"><%= land.address %></p>
+  </div>
+</div>
+<main class="portal-main">
+  <%= link_to portal_root_path(params[:token]), class: "back-link" do %><%= icon(:back) %>ご紹介土地の一覧へ<% end %>
+  <%= render "shared/flash" %>
+
+  <% if @proposal.message.present? %>
+    <div class="portal-message"><%= @proposal.message %></div>
+  <% end %>
+
+  <section class="card">
+    <div class="land-card__price num"><%= man_yen(land.price) %></div>
+    <dl class="spec-list num" style="margin-top:12px">
+      <dt>土地面積</dt><dd><%= sqm(land.land_area) %>（<%= tsubo(land.land_area_tsubo) %>）</dd>
+      <% if land.price_per_tsubo %><dt>坪単価</dt><dd><%= man_yen(land.price_per_tsubo) %></dd><% end %>
+      <dt>建ぺい率／容積率</dt><dd><%= land.building_coverage_ratio.presence || "—" %> ／ <%= land.floor_area_ratio.presence || "—" %></dd>
+      <dt>用途地域</dt><dd><%= land.zoning_i18n || "—" %></dd>
+      <dt>現況</dt><dd><%= land.current_status_i18n || "—" %></dd>
+      <dt>建築条件</dt><dd><%= land.has_building_conditions? ? "あり" : "なし" %></dd>
+      <dt>道路</dt><dd><%= simple_format(land.adjacent_road.presence || "—") %></dd>
+    </dl>
+    <% if land.comment.present? %>
+      <h3 style="margin-top:20px">担当者より</h3>
+      <%= simple_format(land.comment) %>
+    <% end %>
+  </section>
+
+  <div class="portal-actions">
+    <%= button_to react_portal_proposal_path(params[:token], @proposal, reaction: :interested), method: :patch,
+          class: ["button", ("is-selected" if @proposal.reaction_interested?)] do %><%= icon(:heart) %>気になる<% end %>
+    <%= button_to react_portal_proposal_path(params[:token], @proposal, reaction: :declined), method: :patch,
+          class: ["button", ("is-selected" if @proposal.reaction_declined?)] do %><%= icon(:x) %>見送る<% end %>
+  </div>
+</main>
