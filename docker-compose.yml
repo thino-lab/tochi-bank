@@ -1,0 +1,21 @@
+# ローカル開発用の DB（MariaDB）。Rails 本体は手元の Ruby で動かす。
+#   docker compose up -d   # 起動
+#   docker compose down    # 停止（データは volume に残る）
+# ポートは 3310。SUGOSEKI（3306 / 3307）と同時に起動してもぶつからない。
+services:
+  db:
+    image: mariadb:11.4
+    environment:
+      MARIADB_ROOT_PASSWORD: tochi
+    ports:
+      - "3310:3306"
+    volumes:
+      - tochi_bank_db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  tochi_bank_db:

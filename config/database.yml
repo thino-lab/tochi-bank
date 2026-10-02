@@ -13,9 +13,12 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # 既定値は docker-compose.yml の MariaDB（127.0.0.1:3310 / root / tochi）。
+  # 自前の MariaDB を使う場合は環境変数で上書きする（例: DB_PORT=3306 DB_PASSWORD=）
   username: <%= ENV.fetch("DB_USERNAME", "root") %>
-  password: <%= ENV["DB_PASSWORD"] %>
-  host: <%= ENV.fetch("DB_HOST", "localhost") %>
+  password: <%= ENV.fetch("DB_PASSWORD", "tochi") %>
+  host: <%= ENV.fetch("DB_HOST", "127.0.0.1") %>
+  port: <%= ENV.fetch("DB_PORT", 3310) %>
   socket: <%= ENV["DB_SOCKET"] %>
 
 development:

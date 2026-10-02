@@ -1,37 +1,43 @@
 #!/usr/bin/env ruby
+# 開発環境のセットアップ（何度実行しても安全）。
+#   docker compose up -d   # 先に DB を起動しておく
+#   bin/setup              # gem 取得 → DB 作成・マイグレーション → デモデータ → サーバ起動
+#   bin/setup --skip-server  # サーバを起動しない
 require "fileutils"
 
 APP_ROOT = File.expand_path("..", __dir__)
-APP_NAME = "tochi-bank-gen"
 
 def system!(*args)
   system(*args, exception: true)
 end
 
 FileUtils.chdir APP_ROOT do
-  # This script is a way to set up or update your development environment automatically.
-  # This script is idempotent, so that you can run it at any time and get an expectable outcome.
-  # Add necessary setup steps to this file.
-
-  puts "== Installing dependencies =="
+  puts "== gem をインストール =="
   system! "gem install bundler --conservative"
   system("bundle check") || system!("bundle install")
 
-  # puts "\n== Copying sample files =="
-  # unless File.exist?("config/database.yml")
-  #   FileUtils.cp "config/database.yml.sample", "config/database.yml"
-  # end
+  puts "\n== DB の起動を確認 =="
+  db_ready = system("bin/rails runner 'ActiveRecord::Base.connection_pool.with_connection { }' 2>/dev/null") ||
+             system("bin/rails db:create 2>/dev/null")
+  unless db_ready
+    abort <<~MSG
+      DB に接続できません。先に MariaDB を起動してください:
+        docker compose up -d
+      （自前の MariaDB を使う場合は DB_HOST / DB_PORT / DB_USERNAME / DB_PASSWORD を設定）
+    MSG
+  end
 
-  puts "\n== Preparing database =="
+  puts "\n== DB を準備（作成・マイグレーション） =="
   system! "bin/rails db:prepare"
 
-  puts "\n== Removing old logs and tempfiles =="
+  puts "\n== デモデータを投入 =="
+  system! "bin/rails db:seed"
+
+  puts "\n== 古いログと一時ファイルを削除 =="
   system! "bin/rails log:clear tmp:clear"
 
-  puts "\n== Restarting application server =="
-  system! "bin/rails restart"
-
-  # puts "\n== Configuring puma-dev =="
-  # system "ln -nfs #{APP_ROOT} ~/.puma-dev/#{APP_NAME}"
-  # system "curl -Is https://#{APP_NAME}.test/up | head -n 1"
+  unless ARGV.include?("--skip-server")
+    puts "\n== サーバを起動 → http://localhost:3000/login （tanaka@example.com / password） =="
+    exec "bin/rails server"
+  end
 end

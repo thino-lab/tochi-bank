@@ -10,14 +10,15 @@ Rails 8.1 / MariaDB / MVC 構成。設計方針の詳細は [docs/ARCHITECTURE.m
 ## 1. 開発サーバ起動
 
 ```bash
-bundle install
-bin/rails db:prepare db:seed   # DB作成・マイグレーション・デモデータ投入（seed は冪等）
-bin/rails server               # → http://localhost:3000/login
+docker compose up -d   # MariaDB（127.0.0.1:3310）
+bin/setup              # gem・DB作成・マイグレーション・デモデータ・サーバ起動（何度実行しても安全）
+# → http://localhost:3000/login
 ```
 
 - ログイン: `tanaka@example.com` / `password`（管理者）
 - お客様ページの URL は `db:seed` の最後に表示される（顧客詳細画面からもコピーできる）
-- DB 接続は環境変数で上書きできる：`DB_USERNAME` / `DB_PASSWORD` / `DB_HOST` / `DB_SOCKET`
+- DB 接続は環境変数で上書きできる：`DB_HOST` / `DB_PORT` / `DB_USERNAME` / `DB_PASSWORD` / `DB_SOCKET`（既定は docker-compose の DB）
+- 詳しい手順（Mac / Windows）は README.md
 
 ---
 

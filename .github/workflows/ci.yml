@@ -61,7 +61,7 @@ jobs:
         # SUGOSEKI と同じく DB は MariaDB
         image: mariadb:11.4
         env:
-          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: true
+          MARIADB_ROOT_PASSWORD: tochi
         ports:
           - 3306:3306
         options: --health-cmd="healthcheck.sh --connect --innodb_initialized" --health-interval=10s --health-timeout=5s --health-retries=5
@@ -82,5 +82,5 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
-          DATABASE_URL: mysql2://root@127.0.0.1:3306
+          DB_PORT: 3306 # ユーザー・パスワードは database.yml の既定値（root / tochi）
         run: bin/rails db:test:prepare test
