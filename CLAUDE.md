@@ -1,6 +1,7 @@
 # tochi-bank（土地バンク）— Claude Code 作業指針
 
-住宅会社向けの土地バンク／顧客向け土地紹介アプリ（マルチテナント）。
+住宅会社向けの地図型 土地探し・営業支援ツール（「土地BANK」の自社版、マルチテナント）。
+何を作るかは [docs/PRODUCT_PLAN.md](docs/PRODUCT_PLAN.md)。
 Rails 8.1 / MariaDB / MVC 構成。設計方針の詳細は [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 構成・規約は SUGOSEKI（`yhosoyama-prog/sugoseki`）に揃えているが、**アプリとしては独立**している
 （DB・アカウント・デプロイ先は土地バンク専用。SUGOSEKI の DB には接続しない）。
