@@ -2,7 +2,8 @@
 
 住宅会社向けの土地バンク／顧客向け土地紹介アプリ（マルチテナント）。
 Rails 8.1 / MariaDB / MVC 構成。設計方針の詳細は [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
-構成・規約は SUGOSEKI（`yhosoyama-prog/sugoseki`）に揃えている。
+構成・規約は SUGOSEKI（`yhosoyama-prog/sugoseki`）に揃えているが、**アプリとしては独立**している
+（DB・アカウント・デプロイ先は土地バンク専用。SUGOSEKI の DB には接続しない）。
 
 ---
 
@@ -42,13 +43,13 @@ bin/rails server               # → http://localhost:3000/login
 - **削除**: 論理削除のみ（`SoftDeletable`、`soft_delete!`）。`destroy` / `delete` / `destroy_all` は使わない
 - **マルチテナント**: 全業務テーブルに `company_id`。Controller では必ず `policy_scope` 経由で取得する
 - **金額**: DB は円、画面は万円（`man_yen_attribute`）
-- **lands のカラム名・enum 整数値は pg-core `properties` と一致させる**。新しいカラムを足すときは pg-core に同名カラムがないか先に確認し、あればそれに合わせる
+- lands のカラム名・enum 整数値は pg-core `properties` を参考にしている。新しいカラムを足すときは、同じ意味のカラムが pg-core にあれば名前を合わせる（推奨。独立アプリなので必須ではない）
 - テーブル・カラムを追加するときは作業前に報告して確認を取る：
 
 ```
 ⚠️ DB変更あり
 - 追加するテーブル/カラム: [名前]
-- pg-core に対応する項目: [あり/なし]
+- pg-core に同じ意味の項目: [あり（名前）/なし]
 - 追加理由: [理由]
 このまま進めてもよいですか？
 ```
